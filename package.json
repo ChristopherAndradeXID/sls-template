@@ -1,0 +1,32 @@
+{
+  "name": "sls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sls offline --allowCache"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "middy": "^0.36.0",
+    "pg": "^8.7.3",
+    "query-string": "^7.1.1",
+    "serverless": "^3.17.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@middy/core": "^3.0.2",
+    "@types/aws-lambda": "^8.10.97",
+    "@types/pg": "^8.6.5",
+    "@types/uuid": "^8.3.4",
+    "serverless-offline": "^8.7.0",
+    "serverless-openapi-documentation": "^0.4.0",
+    "serverless-plugin-common-excludes": "^4.0.0",
+    "serverless-plugin-include-dependencies": "^5.0.0",
+    "serverless-plugin-typescript": "^2.1.2",
+    "typescript": "^4.6.4"
+  }
+}

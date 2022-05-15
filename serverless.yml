@@ -1,0 +1,38 @@
+service: sls-curso-uno
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+frameworkVersion: '3'
+
+package:
+  individually: true
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+functions:
+  create_user:
+    handler: src/user/infrastructure/lambda/CreateUser.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /create-user
+
+  get_all_users:
+    handler: src/user/infrastructure/lambda/SearchAllUsers.handler
+    events:
+      - httpApi:
+          path: /users
+          method: GET
+
+  example:
+    handler: src/shared/infrastructure/lambda/exampleFreeze.handler
+    events:
+      - httpApi:
+          path: /example
+          method: GET
