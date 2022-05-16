@@ -1,4 +1,4 @@
-service: sls-curso-uno
+service: sls-template
 
 provider:
   name: aws
