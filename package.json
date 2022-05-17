@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "sls offline --allowCache"
+    "dev": "sls offline --allowCache",
+    "deploy": "sls deploy"
   },
   "keywords": [],
   "author": "",
