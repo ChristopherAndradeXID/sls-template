@@ -14,15 +14,14 @@ jobs:
         with:
           node-version: '12'
 
-      - name: AWS Credentials configure
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
+      - name: Install serverless framework
+        run: npm install -g serverless
 
-      - name: npm install
-        env:
-          CI: true
-        run: |
-          npm ci
+      - name: AWS Credentials configure
+        run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Install NPM dependecies
+        run: npm install
+
+      - name: Serverless deploy
+        run: serverless deploy --verbose
