@@ -15,20 +15,20 @@ jobs:
         with:
           node-version: '12'
 
-      - name: Installing jest
+      - name: [INSTALLING JEST]
         run: npm install --save-dev jest ts-jest typescript ts-node
 
-      - name: Test suit run
+      - name: [RUNNING TEST SUITE]
         run: npm run test
 
-      - name: AWS Credentials configure
-        run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Install serverless framework
+      - name: [INSTALLING SERVERLESS FRAMEWORK]
         run: npm install -g serverless
 
-      - name: Install NPM dependecies
+      - name: [CONFIGURE AWS SERVERLESS CREDENTIALS]
+        run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: [INSTALLING NPM DEPENDENCIES]
         run: npm install
 
-      - name: Serverless deploy
+      - name: [DEPLOYING SERVERLESS]
         run: serverless deploy --verbose
