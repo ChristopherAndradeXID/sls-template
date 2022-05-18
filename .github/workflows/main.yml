@@ -8,17 +8,21 @@ on:
 jobs:
   deploy_lambda:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
 
-      - name: Install serverless framework
-        run: npm install -g serverless
+      - name: Test suit run
+        run: npm run jest
 
       - name: AWS Credentials configure
         run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Install serverless framework
+        run: npm install -g serverless
 
       - name: Install NPM dependecies
         run: npm install
