@@ -19,7 +19,7 @@ jobs:
         run: npm install -g jest
 
       - name: Test suit run
-        run: npm run test
+        run: npm run test ts-jest typescript
 
       - name: AWS Credentials configure
         run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
