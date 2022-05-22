@@ -7,7 +7,7 @@ export class PostgresRepository implements UserRepository {
     constructor(private readonly postgresClient: PostgresClient) {
     }
 
-    async createUser(user: User): Promise<void> {
+    async save(user: User): Promise<void> {
         await this.postgresClient.query(`INSERT INTO "Users" VALUES ($1, $2, $3)`, [
             user.id.value,
             user.userName.value,
@@ -15,16 +15,10 @@ export class PostgresRepository implements UserRepository {
         ]);
     }
 
-    async getAll(): Promise<User[]> {
-        const queryResult = await this.postgresClient.query(`SELECT * FROM "Users"`);
-        return queryResult.rows;
-    }
-
-    async userAlreadyExists(userId: UserId): Promise<boolean> {
+    async withId(userId: UserId): Promise<User> {
         const query = await this.postgresClient.query('SELECT id from "Users" where id = $1', [
             userId.value
         ]);
-
-        return query.rowCount > 0;
+        return query.rows[0];
     }
 }

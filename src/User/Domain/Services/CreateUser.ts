@@ -1,5 +1,5 @@
-import {UserRepository} from "../UserRepository";
 import {User} from "../User";
+import {UserRepository} from "../UserRepository";
 import {UserAlreadyRegisterException} from "../UserAlreadyRegisterException";
 
 export class CreateUser {
@@ -7,12 +7,12 @@ export class CreateUser {
     }
 
     public async run(user: User) {
-        const userAlreadyRegister = await this.userRepository.userAlreadyExists(user.id);
+        const userAlreadyRegister = await this.userRepository.withId(user.id);
 
         if (userAlreadyRegister)
             throw new UserAlreadyRegisterException();
 
-        await this.userRepository.createUser(user);
+        await this.userRepository.save(user);
 
         return user;
     }
