@@ -1,7 +1,7 @@
 import {User} from "./User";
 import {UserId} from "./ValueObject/UserId";
 
-export interface UserRepository {
+export interface AllUsers {
     save(user: User): Promise<void>;
     withId(id: UserId): Promise<User>;
 }

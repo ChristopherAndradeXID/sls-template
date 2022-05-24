@@ -1,12 +1,12 @@
 import {User} from "../../Domain/User";
-import {UserRepository} from "../../Domain/UserRepository";
+import {AllUsers} from "../../Domain/AllUsers";
 import {SuccessResponse} from "../../../Shared/Domain/Http/SuccessResponse";
 import {CreateUser as DomainCreateUser} from "../../Domain/Services/CreateUser";
 
 export class CreateUser {
     private createUser!: DomainCreateUser;
 
-    constructor(private readonly userRepository: UserRepository) {
+    constructor(private readonly userRepository: AllUsers) {
         this.createUser = new DomainCreateUser(userRepository);
     }
 

@@ -1,6 +1,6 @@
 import {parse} from "query-string";
 import {CreateUser} from "../../Application/Create/CreateUser";
-import {PostgresRepository} from "../Persistence/PostgresRepository";
+import {PostgresAllUsers} from "../Persistence/PostgresAllUsers";
 import {PostgresClient} from "../../../Shared/Infrastructure/Persistence/PostgresClient";
 import {ExceptionMapper} from "../../../Shared/Infrastructure/Mapper/ExceptionMapper";
 import {ApiGatewayMapper} from "../../../Shared/Infrastructure/Mapper/ApiGatewayMapper";
@@ -13,7 +13,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context) {
     context.callbackWaitsForEmptyEventLoop = false;
 
     try {
-        const postgresRepository = new PostgresRepository(connection);
+        const postgresRepository = new PostgresAllUsers(connection);
 
         const body = parse(event.body!);
         const createUser = new CreateUser(postgresRepository);

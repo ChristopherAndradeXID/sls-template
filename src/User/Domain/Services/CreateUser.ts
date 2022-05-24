@@ -1,9 +1,9 @@
 import {User} from "../User";
-import {UserRepository} from "../UserRepository";
+import {AllUsers} from "../AllUsers";
 import {UserAlreadyRegisterException} from "../UserAlreadyRegisterException";
 
 export class CreateUser {
-    constructor(private readonly userRepository: UserRepository) {
+    constructor(private readonly userRepository: AllUsers) {
     }
 
     public async run(user: User) {

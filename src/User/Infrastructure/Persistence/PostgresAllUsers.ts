@@ -1,9 +1,9 @@
-import {UserRepository} from "../../Domain/UserRepository";
+import {AllUsers} from "../../Domain/AllUsers";
 import {User} from "../../Domain/User";
 import {UserId} from "../../Domain/ValueObject/UserId";
 import {PostgresClient} from "../../../Shared/Infrastructure/Persistence/PostgresClient";
 
-export class PostgresRepository implements UserRepository {
+export class PostgresAllUsers implements AllUsers {
     constructor(private readonly postgresClient: PostgresClient) {
     }
 
@@ -16,9 +16,16 @@ export class PostgresRepository implements UserRepository {
     }
 
     async withId(userId: UserId): Promise<User> {
-        const query = await this.postgresClient.query('SELECT id from "Users" where id = $1', [
+        const query = await this.postgresClient.query('SELECT * from "Users" where id = $1', [
             userId.value
         ]);
-        return query.rows[0];
+
+        const result = query.rows[0];
+
+        return User.fromPrimitives(
+            result["id"],
+            result["name"],
+            result["lastname"],
+        );
     }
 }
