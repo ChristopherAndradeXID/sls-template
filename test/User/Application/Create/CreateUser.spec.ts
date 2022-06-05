@@ -14,7 +14,7 @@ describe('Create user should', () => {
         createUserMock.mockName('createUserMock')
             .mockImplementation(async (id, name, lastname) => {
                 return new Success<User>(UserMother.with({
-                    name: UserNameMother.create('Christopher Andrade')
+                    name: UserNameMother.create('Christopher AndradeX')
                 }));
             });
 
