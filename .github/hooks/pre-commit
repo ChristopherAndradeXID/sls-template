@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "running tests before git commit"
+npm run test
