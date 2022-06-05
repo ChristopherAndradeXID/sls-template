@@ -1,5 +1,5 @@
 export async function guardValidUser(event, context) {
-    return {
-        statusCode: 400
-    }
+  return {
+    statusCode: 400,
+  };
 }

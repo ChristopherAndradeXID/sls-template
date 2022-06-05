@@ -1,6 +1,6 @@
-import { StatusCode } from "../StatusCode";
+import { StatusCode } from '../StatusCode';
 
 export interface ErrorPayload {
-    code: StatusCode;
-    message: string;
+  code: StatusCode;
+  message: string;
 }
