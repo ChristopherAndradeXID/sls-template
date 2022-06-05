@@ -1,6 +1,6 @@
-import {StatusCode} from "./StatusCode";
+import { StatusCode } from './StatusCode';
 
 export interface JSONBody<T> {
-    statusCode: StatusCode;
-    body: T;
+  statusCode: StatusCode;
+  body: T;
 }

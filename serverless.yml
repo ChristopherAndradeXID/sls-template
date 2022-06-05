@@ -17,7 +17,7 @@ plugins:
 
 functions:
   create_user:
-    handler: src/user/infrastructure/lambda/CreateUser.handler
+    handler: src/User/Infrastructure/Lambda/CreateUser.handler
     events:
       - httpApi:
           method: POST

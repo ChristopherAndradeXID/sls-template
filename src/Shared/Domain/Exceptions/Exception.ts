@@ -1,14 +1,14 @@
-import {JSONBody} from "../JSONBody";
-import {Response} from "../Response";
-import {ErrorResponse} from "../Http/ErrorResponse";
+import { Response } from '../Response';
+import { ErrorPayload } from '../Dto/ErrorPayload';
 
 export abstract class Exception {
-    protected constructor(
-        private readonly name: string,
-        private readonly message: string,
-    ) {
-        console.error(this.name, this.message);
-    }
+  protected constructor(
+    private readonly name: string,
+    private readonly message: string,
+  ) {
+    // eslint-disable-next-line no-console
+    console.error(this.name, this.message);
+  }
 
-    abstract toErrorResponse(): Response<ErrorResponse>;
+  abstract toErrorResponse(): Response<ErrorPayload>;
 }
