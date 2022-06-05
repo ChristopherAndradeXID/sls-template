@@ -1,10 +1,10 @@
 import {StringValueObject} from "../../../Shared/Domain/ValueObject/StringValueObject";
-import {InvalidParamException} from "../../../Shared/Domain/Exceptions/InvalidParamException";
+import {InvalidParam} from "../../../Shared/Domain/Exceptions/InvalidParam";
 
 export class UserLastname extends StringValueObject {
     constructor(value: string) {
         if (!value)
-            throw new InvalidParamException(value, UserLastname.name);
+            throw new InvalidParam(value, UserLastname.name);
         super(value);
     }
 }

@@ -1,8 +1,8 @@
 import {Response} from "../Response";
-import {ErrorResponse} from "./ErrorResponse";
+import {ErrorPayload} from "./ErrorPayload";
 import {StatusCode} from "../StatusCode";
 
-export class InternalServerErrorResponse extends Response<ErrorResponse> {
+export class ApplicationError extends Response<ErrorPayload> {
     constructor() {
         super(StatusCode.INTERNAL_SERVER_ERROR, {
             code: StatusCode.INTERNAL_SERVER_ERROR,

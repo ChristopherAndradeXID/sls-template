@@ -1,6 +1,6 @@
 import {User} from "../../Domain/User";
 import {AllUsers} from "../../Domain/AllUsers";
-import {SuccessResponse} from "../../../Shared/Domain/Http/SuccessResponse";
+import {Success} from "../../../Shared/Domain/Dto/Success";
 import {CreateUser as DomainCreateUser} from "../../Domain/Services/CreateUser";
 
 export class CreateUser {
@@ -12,6 +12,6 @@ export class CreateUser {
 
     public async run(id: string, userName: string, lastname: string) {
         const data = await this.createUser.run(User.fromPrimitives(id, userName, lastname));
-        return new SuccessResponse<User>(data);
+        return new Success<User>(data);
     }
 }

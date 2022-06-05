@@ -1,6 +1,6 @@
 import {User} from "../User";
 import {AllUsers} from "../AllUsers";
-import {UserAlreadyRegisterException} from "../UserAlreadyRegisterException";
+import {UserAlreadyRegister} from "../UserAlreadyRegister";
 
 export class CreateUser {
     constructor(private readonly userRepository: AllUsers) {
@@ -10,7 +10,7 @@ export class CreateUser {
         const userAlreadyRegister = await this.userRepository.withId(user.id);
 
         if (userAlreadyRegister)
-            throw new UserAlreadyRegisterException();
+            throw new UserAlreadyRegister();
 
         await this.userRepository.save(user);
 

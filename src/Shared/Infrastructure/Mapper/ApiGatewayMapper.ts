@@ -1,5 +1,5 @@
 import {Response} from "../../Domain/Response";
-import {ApiGatewayResponse} from "../../Domain/Http/ApiGatewayResponse";
+import {ApiGatewayResponse} from "../../Domain/Dto/ApiGatewayResponse";
 
 export class ApiGatewayMapper {
     public static from<T>(response: Response<T>) {

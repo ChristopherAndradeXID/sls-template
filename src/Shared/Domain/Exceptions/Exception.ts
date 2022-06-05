@@ -1,6 +1,6 @@
 import {JSONBody} from "../JSONBody";
 import {Response} from "../Response";
-import {ErrorResponse} from "../Http/ErrorResponse";
+import {ErrorPayload} from "../Dto/ErrorPayload";
 
 export abstract class Exception {
     protected constructor(
@@ -10,5 +10,5 @@ export abstract class Exception {
         console.error(this.name, this.message);
     }
 
-    abstract toErrorResponse(): Response<ErrorResponse>;
+    abstract toErrorResponse(): Response<ErrorPayload>;
 }

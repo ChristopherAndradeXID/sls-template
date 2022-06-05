@@ -1,6 +1,6 @@
 import { StatusCode } from "../StatusCode";
 
-export interface ErrorResponse {
+export interface ErrorPayload {
     code: StatusCode;
     message: string;
 }

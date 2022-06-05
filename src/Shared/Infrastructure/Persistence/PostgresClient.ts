@@ -1,5 +1,5 @@
 import {Client} from "pg";
-import {ApplicationException} from "../../Domain/Exceptions/ApplicationException";
+import {InternalServerError} from "../../Domain/Exceptions/InternalServerError";
 
 export class PostgresClient {
 
@@ -16,11 +16,12 @@ export class PostgresClient {
 
     private connect(): void {
         this.client.connect(exception => {
-            if (exception) throw new ApplicationException(exception);
+            if (exception) throw new InternalServerError(exception);
         });
     }
 
     public query(sqlQuery: string, values?: any[]) {
+        console.log(this.client)
         return this.client.query<any>(sqlQuery, values);
     }
 

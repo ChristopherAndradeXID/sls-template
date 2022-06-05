@@ -1,12 +1,12 @@
 import {Exception} from "../../Domain/Exceptions/Exception";
-import {InternalServerErrorResponse} from "../../Domain/Http/InternalServerErrorResponse";
+import {ApplicationError} from "../../Domain/Dto/ApplicationError";
 import {ApiGatewayMapper} from "./ApiGatewayMapper";
-import {ErrorResponse} from "../../Domain/Http/ErrorResponse";
+import {ErrorPayload} from "../../Domain/Dto/ErrorPayload";
 
 export class ExceptionMapper {
     public static from(exception: any | Exception) {
         if (exception instanceof Exception)
-            return ApiGatewayMapper.from<ErrorResponse>(exception.toErrorResponse());
-        return ApiGatewayMapper.from<ErrorResponse>(new InternalServerErrorResponse());
+            return ApiGatewayMapper.from<ErrorPayload>(exception.toErrorResponse());
+        return ApiGatewayMapper.from<ErrorPayload>(new ApplicationError());
     }
 }

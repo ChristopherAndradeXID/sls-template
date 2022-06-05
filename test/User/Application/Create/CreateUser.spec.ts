@@ -1,5 +1,5 @@
 import {CreateUser} from "../../../../src/User/Application/Create/CreateUser";
-import {SuccessResponse} from "../../../../src/Shared/Domain/Http/SuccessResponse";
+import {Success} from "../../../../src/Shared/Domain/Dto/Success";
 import {UserMother} from "../../Domain/UserMother";
 import {User} from "../../../../src/User/Domain/User";
 import {UserNameMother} from "../../Domain/UserNameMother";
@@ -13,7 +13,7 @@ describe('Create user should', () => {
 
         createUserMock.mockName('createUserMock')
             .mockImplementation(async (id, name, lastname) => {
-                return new SuccessResponse<User>(UserMother.with({
+                return new Success<User>(UserMother.with({
                     name: UserNameMother.create('Christopher Andrade')
                 }));
             });
