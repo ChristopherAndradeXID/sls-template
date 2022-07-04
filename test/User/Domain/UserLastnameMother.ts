@@ -1,4 +1,4 @@
-import {UserLastname} from "../../../src/User/Domain/ValueObject/UserLastname";
+import {UserLastname} from "../../../src/user/domain/ValueObject/UserLastname";
 import {faker} from "@faker-js/faker";
 
 export class UserLastnameMother {

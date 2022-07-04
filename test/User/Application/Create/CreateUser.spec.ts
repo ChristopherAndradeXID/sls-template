@@ -1,7 +1,7 @@
-import {CreateUser} from "../../../../src/User/Application/Create/CreateUser";
-import {Success} from "../../../../src/Shared/Domain/Dto/Success";
+import {CreateUser} from "../../../../src/user/application/Create/CreateUser";
+import {Success} from "../../../../src/shared/infrastructure/Dto/Success";
 import {UserMother} from "../../Domain/UserMother";
-import {User} from "../../../../src/User/Domain/User";
+import {User} from "../../../../src/user/domain/User";
 import {UserNameMother} from "../../Domain/UserNameMother";
 import {AllUserFake} from "../../Mocks/AllUserFake";
 

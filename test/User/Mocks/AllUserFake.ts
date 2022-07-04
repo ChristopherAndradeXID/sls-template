@@ -1,6 +1,6 @@
-import {AllUsers} from "../../../src/User/Domain/AllUsers";
-import {User} from "../../../src/User/Domain/User";
-import {UserId} from "../../../src/User/Domain/ValueObject/UserId";
+import {AllUsers} from "../../../src/user/domain/AllUsers";
+import {User} from "../../../src/user/domain/User";
+import {UserId} from "../../../src/user/domain/ValueObject/UserId";
 
 export class AllUserFake implements AllUsers {
     private readonly users: User[] = [];
