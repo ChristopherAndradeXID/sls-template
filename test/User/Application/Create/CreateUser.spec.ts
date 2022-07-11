@@ -1,11 +1,11 @@
-import {CreateUser} from "../../../../src/user/application/Create/CreateUser";
+import {CreateUser} from "../../../../src/user/application/create/createUser";
 import {Success} from "../../../../src/shared/infrastructure/Dto/Success";
 import {UserMother} from "../../Domain/UserMother";
-import {User} from "../../../../src/user/domain/User";
+import {User} from "../../../../src/user/domain/user";
 import {UserNameMother} from "../../Domain/UserNameMother";
 import {AllUserFake} from "../../Mocks/AllUserFake";
 
-describe('Create user should', () => {
+describe('create user should', () => {
     test('persist an user', async () => {
 
         const createUser = new CreateUser(new AllUserFake());

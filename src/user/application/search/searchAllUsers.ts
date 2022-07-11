@@ -1,6 +1,6 @@
-import { AllUsers } from '../../domain/AllUsers';
+import { AllUsers } from '../../domain/allUsers';
 import { Success } from '../../../shared/infrastructure/Dto/Success';
-import { UserId } from '../../domain/ValueObject/UserId';
+import { UserId } from '../../domain/valueObject/userId';
 
 export class SearchAllUsers {
   constructor(private readonly userRepository: AllUsers) {

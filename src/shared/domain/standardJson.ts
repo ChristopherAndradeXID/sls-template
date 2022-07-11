@@ -1,6 +1,6 @@
 import { StatusCode } from './statusCode';
 
-export interface JSONBody<T> {
+export interface StandardJson<T> {
   statusCode: StatusCode;
   body: T;
 }

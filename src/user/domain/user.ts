@@ -1,6 +1,6 @@
-import { UserId } from './ValueObject/UserId';
-import { UserName } from './ValueObject/UserName';
-import { UserLastname } from './ValueObject/UserLastname';
+import { UserId } from './valueObject/userId';
+import { UserName } from './valueObject/userName';
+import { UserLastname } from './valueObject/userLastname';
 
 export class User {
   private constructor(

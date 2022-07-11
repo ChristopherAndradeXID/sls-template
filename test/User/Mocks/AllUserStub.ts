@@ -1,6 +1,6 @@
-import {AllUsers} from "../../../src/user/domain/AllUsers";
-import {User} from "../../../src/user/domain/User";
-import {UserId} from "../../../src/user/domain/ValueObject/UserId";
+import {AllUsers} from "../../../src/user/domain/allUsers";
+import {User} from "../../../src/user/domain/user";
+import {UserId} from "../../../src/user/domain/valueObject/userId";
 import {UserMother} from "../Domain/UserMother";
 import {UserIdMother} from "../Domain/UserIdMother";
 

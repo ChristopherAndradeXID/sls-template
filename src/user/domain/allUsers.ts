@@ -1,5 +1,5 @@
-import { User } from './User';
-import { UserId } from './ValueObject/UserId';
+import { User } from './user';
+import { UserId } from './valueObject/userId';
 
 export interface AllUsers {
   save(user: User): Promise<void>;

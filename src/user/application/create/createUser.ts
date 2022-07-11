@@ -1,7 +1,7 @@
-import { User } from '../../domain/User';
-import { AllUsers } from '../../domain/AllUsers';
+import { User } from '../../domain/user';
+import { AllUsers } from '../../domain/allUsers';
 import { Success } from '../../../shared/infrastructure/Dto/Success';
-import { CreateUser as DomainCreateUser } from '../../domain/Services/CreateUser';
+import { CreateUser as DomainCreateUser } from '../../domain/services/createUser';
 
 export class CreateUser {
   private createUser!: DomainCreateUser;
