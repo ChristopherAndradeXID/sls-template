@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "sourceMap": true,
@@ -11,5 +12,6 @@
     "rootDir": "./",
     "esModuleInterop": false,
     "noImplicitAny": true,
+    "strict": true
   },
 }

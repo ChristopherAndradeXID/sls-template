@@ -1,4 +1,4 @@
-export enum StatusCode {
+export enum HttpStatusCode {
   OK = 200,
   BAD_REQUEST = 400,
   NOT_FOUNT = 404,

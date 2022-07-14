@@ -24,11 +24,11 @@ const serverlessConfiguration: AWS = {
 
   functions: {
     users: {
-      handler: './src/user/infrastructure/lambda/getAllTodos.handler',
+      handler: './src/example/infrastructure/lambda/createExample.CreateExampleHandler',
       events: [
         {
           http: {
-            method: 'get',
+            method: 'post',
             path: '/users/uno',
             cors: true,
           },

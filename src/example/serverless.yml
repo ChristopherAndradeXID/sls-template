@@ -1,0 +1,21 @@
+service: users
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+functions:
+  create_example:
+    handler: infrastructure/lambda/createExample.CreateExampleHandler
+    events:
+      - http:
+          method: POST
+          path: /example
