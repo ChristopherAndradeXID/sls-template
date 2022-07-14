@@ -1,10 +1,11 @@
-import { Service } from 'typedi';
+import { inject, injectable } from 'inversify';
 import { Example } from '../domain/example';
-import { InMemoryAllExamples } from '../infrastructure/persistence/inMemoryAllExamples';
+import { httpTypes } from '../infrastructure/di/httpExample';
+import { AllExamples } from '../domain/allExamples';
 
-@Service()
+@injectable()
 export class CreateExample {
-  constructor(private readonly allExamples: InMemoryAllExamples) {
+  constructor(@inject(httpTypes.allExamples) private readonly allExamples: AllExamples) {
   }
 
   public run(example: Example) {

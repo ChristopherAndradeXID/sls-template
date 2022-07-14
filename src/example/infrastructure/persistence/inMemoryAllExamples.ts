@@ -1,8 +1,8 @@
-import { Service } from 'typedi';
+import { injectable } from 'inversify';
 import { AllExamples } from '../../domain/allExamples';
 import { Example } from '../../domain/example';
 
-@Service()
+@injectable()
 export class InMemoryAllExamples implements AllExamples {
   private readonly examples: Example[] = [];
 
