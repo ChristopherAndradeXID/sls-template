@@ -14,7 +14,7 @@ plugins:
 
 functions:
   create_example:
-    handler: infrastructure/lambda/createExample.CreateExampleHandler
+    handler: infrastructure/lambda/createExample.handler
     events:
       - http:
           method: POST

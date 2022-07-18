@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-import-module-exports
 import { AWS } from '@serverless/typescript';
+import * as path from 'path';
 
 const serverlessConfiguration: AWS = {
   service: 'cg-app',
 
   package: {
     individually: true,
+    excludeDevDependencies: true,
   },
 
   frameworkVersion: '3',
@@ -17,6 +19,12 @@ const serverlessConfiguration: AWS = {
     'serverless-plugin-include-dependencies',
   ],
 
+  custom: {
+    webpack: {
+      webpackConfig: 'webpack.config.js',
+    },
+  },
+
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -24,7 +32,7 @@ const serverlessConfiguration: AWS = {
 
   functions: {
     users: {
-      handler: './src/example/infrastructure/lambda/createExample.CreateExampleHandler',
+      handler: './src/example/infrastructure/lambda/createExample.handler',
       events: [
         {
           http: {

@@ -1,37 +1,49 @@
 import 'reflect-metadata';
-import { APIGatewayProxyEvent } from 'aws-lambda';
-import Ajv from 'ajv';
-import { CreateExample } from '../../application/createExample';
-import { Example } from '../../domain/example';
+import middy from '@middy/core';
+import httpJsonBodyParser from '@middy/http-json-body-parser';
+import { Context } from 'aws-lambda';
 import { LambdaResponse } from '../../../shared/domain/lambdaResponse';
+import { Connection } from '../../../shared/infrastructure/connection/Connection';
+import { User } from '../../../user/domain/user';
 import { HttpStatusCode } from '../../../shared/domain/httpStatusCode';
-import { container } from '../../../container';
-import { httpTypes } from '../di/httpExample';
+import { UserId } from '../../../user/domain/valueObject/userId';
+import { UserName } from '../../../user/domain/valueObject/userName';
+import { UserLastname } from '../../../user/domain/valueObject/userLastname';
 
-const ajv = new Ajv();
+/* function domainValidationMiddleWare() {
+  return {
+    before(request: any) {
+    },
+  };
+} */
 
-const schema = {
-  type: 'object',
-  properties: {
-    id: { type: 'string' },
-  },
-  required: ['id'],
-  additionalProperties: false,
-};
+// eslint-disable-next-line max-len
+async function CreateExampleHandler(event: any, context: Context): Promise<LambdaResponse> {
+  context.callbackWaitsForEmptyEventLoop = false;
+  const connection = await Connection.getConnection();
 
-export async function CreateExampleHandler(event: APIGatewayProxyEvent): Promise<LambdaResponse> {
-  const body = JSON.parse(event.body!);
+  const user = await connection.getRepository(User).find();
+  await connection.getRepository(User).save(User.create(
+    new UserId(event.body.id),
+    new UserName(event.body.userName),
+    new UserLastname(event.body.lastname),
+  ).toPrimitives());
 
-  console.log(ajv.validate(schema, body));
-
-  const createExample = container.get<CreateExample>(httpTypes.createExample);
-
-  await createExample.run(Example.fromPrimitives(body.id));
+  connection.close();
 
   return {
     statusCode: HttpStatusCode.OK,
     body: JSON.stringify({
       ok: 'chi',
+      user,
     }),
   };
 }
+
+const handler = middy(CreateExampleHandler)
+  .use(httpJsonBodyParser());
+// .use(domainValidationMiddleWare());
+
+export {
+  handler,
+};

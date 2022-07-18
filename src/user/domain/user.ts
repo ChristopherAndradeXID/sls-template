@@ -1,13 +1,33 @@
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { UserId } from './valueObject/userId';
 import { UserName } from './valueObject/userName';
 import { UserLastname } from './valueObject/userLastname';
 
+@Entity()
 export class User {
+  @PrimaryColumn({
+    type: 'varchar',
+  })
+  public id!: UserId;
+
+  @Column({
+    type: 'varchar',
+  })
+  public userName!: UserName;
+
+  @Column({
+    type: 'varchar',
+  })
+  public userLastName!: UserLastname;
+
   private constructor(
-    public id: UserId,
-    public userName: UserName,
-    public userLastName: UserLastname,
+    id: UserId,
+    userName: UserName,
+    userLastName: UserLastname,
   ) {
+    this.id = id;
+    this.userLastName = userLastName;
+    this.userName = userName;
   }
 
   public static create(id: UserId, userName: UserName, userLastName: UserLastname) {
