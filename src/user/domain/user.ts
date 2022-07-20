@@ -1,29 +1,14 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Entity } from 'typeorm';
 import { UserId } from './valueObject/userId';
 import { UserName } from './valueObject/userName';
 import { UserLastname } from './valueObject/userLastname';
 
 @Entity()
 export class User {
-  @PrimaryColumn({
-    type: 'varchar',
-  })
-  public id!: UserId;
-
-  @Column({
-    type: 'varchar',
-  })
-  public userName!: UserName;
-
-  @Column({
-    type: 'varchar',
-  })
-  public userLastName!: UserLastname;
-
   private constructor(
-    id: UserId,
-    userName: UserName,
-    userLastName: UserLastname,
+    public id: UserId,
+    public userName: UserName,
+    public userLastName: UserLastname,
   ) {
     this.id = id;
     this.userLastName = userLastName;
@@ -35,7 +20,7 @@ export class User {
   }
 
   static fromPrimitives(id: string, userName: string, userLastName: string): User {
-    return new this(
+    return new User(
       new UserId(id),
       new UserName(userName),
       new UserLastname(userLastName),

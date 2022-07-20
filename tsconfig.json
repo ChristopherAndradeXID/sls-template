@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "removeComments": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "preserveConstEnums": true,
     "strictNullChecks": true,
