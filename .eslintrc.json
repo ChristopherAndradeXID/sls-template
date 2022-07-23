@@ -17,6 +17,8 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "@typescript-eslint/no-useless-constructor": 0,
+    "no-useless-constructor": 0,
     "import/prefer-default-export": "off",
     "import/no-default-export": "error"
   }

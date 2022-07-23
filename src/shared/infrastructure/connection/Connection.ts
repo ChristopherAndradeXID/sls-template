@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { DataSource, EntityTarget, Repository } from 'typeorm';
 import { UserModel } from '../../../user/infrastructure/model/userModel';
+import { ProfileModel } from '../../../profile/infrastructure/model/profileModel';
 
 @injectable()
 export class Connection {
@@ -8,18 +9,23 @@ export class Connection {
 
   constructor() {
     this.dbSource = new DataSource({
-      database: 'example',
-      password: '123456',
+      database: 'app',
+      password: 'GEO699',
       port: 5432,
       username: 'postgres',
       synchronize: true,
       type: 'postgres',
-      entities: [UserModel],
+      entities: [
+        UserModel,
+        ProfileModel,
+      ],
     });
   }
 
   public async open() {
-    await this.dbSource.initialize();
+    if (!this.dbSource.isInitialized) {
+      await this.dbSource.initialize();
+    }
   }
 
   getRepository<T>(entity: EntityTarget<T>): Repository<T> {

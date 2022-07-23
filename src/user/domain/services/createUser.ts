@@ -1,6 +1,6 @@
 import { User } from '../user';
 import { AllUsers } from '../allUsers';
-import { UserAlreadyRegister } from '../userAlreadyRegister';
+import { UserAlreadyRegister } from '../exception/userAlreadyRegister';
 
 export class CreateUser {
   constructor(private readonly userRepository: AllUsers) {
