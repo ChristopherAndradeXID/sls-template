@@ -1,9 +1,9 @@
 import middy from '@middy/core';
 import { container } from '../../../container';
-import { Connection } from '../connection/Connection';
+import { ConnectionManager } from '../connectionManager';
 import { sharedTypes } from '../di/sharedTypes';
 
-const connection = container.get<Connection>(sharedTypes.connection);
+const connection = container.get<ConnectionManager>(sharedTypes.connection);
 
 function openConnection() {
   return {

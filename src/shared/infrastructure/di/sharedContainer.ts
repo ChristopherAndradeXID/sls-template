@@ -1,10 +1,10 @@
 import { ContainerModule, interfaces } from 'inversify';
-import { Connection } from '../connection/Connection';
+import { ConnectionManager } from '../connectionManager';
 import { sharedTypes } from './sharedTypes';
 
 const sharedContainer = new ContainerModule((bind: interfaces.Bind) => {
-  bind<Connection>(sharedTypes.connection)
-    .to(Connection)
+  bind<ConnectionManager>(sharedTypes.connection)
+    .to(ConnectionManager)
     .inSingletonScope();
 });
 

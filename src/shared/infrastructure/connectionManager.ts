@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { DataSource, EntityTarget, Repository } from 'typeorm';
-import { UserModel } from '../../../user/infrastructure/model/userModel';
-import { ProfileModel } from '../../../profile/infrastructure/model/profileModel';
+import { UserModel } from '../../user/infrastructure/model/userModel';
+import { ProfileModel } from '../../profile/infrastructure/model/profileModel';
 
 @injectable()
-export class Connection {
+export class ConnectionManager {
   private dbSource!: DataSource;
 
   constructor() {

@@ -1,12 +1,7 @@
-import { validate } from 'uuid';
-import { InvalidParam } from '../../../shared/domain/invalidParam';
-import { StringValueObject } from '../../../shared/domain/valueObject/stringValueObject';
+import { UuidValueObject } from '../../../shared/domain/valueObject/uuidValueObject';
 
-export class UserId extends StringValueObject {
+export class UserId extends UuidValueObject {
   constructor(value: string) {
-    if (!validate(value)) {
-      throw new InvalidParam(value, UserId.name);
-    }
     super(value);
   }
 }

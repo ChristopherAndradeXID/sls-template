@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { AllExamples } from '../../domain/allExamples';
 import { Example } from '../../domain/example';
 import { User } from '../../../user/domain/user';
-import { Connection } from '../../../shared/infrastructure/connection/Connection';
+import { ConnectionManager } from '../../../shared/infrastructure/connectionManager';
 import { UserModel } from '../../../user/infrastructure/model/userModel';
 import { sharedTypes } from '../../../shared/infrastructure/di/sharedTypes';
 
@@ -10,7 +10,7 @@ import { sharedTypes } from '../../../shared/infrastructure/di/sharedTypes';
 export class InMemoryAllExamples implements AllExamples {
   private readonly examples: Example[] = [];
 
-  constructor(@inject(sharedTypes.connection) private connection: Connection) {
+  constructor(@inject(sharedTypes.connection) private connection: ConnectionManager) {
   }
 
   save(example: Example): void {
