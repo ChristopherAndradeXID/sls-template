@@ -4,6 +4,7 @@ import { sharedTypes } from '../../../shared/infrastructure/di/sharedTypes';
 import { ConnectionManager } from '../../../shared/infrastructure/connectionManager';
 import { Profile } from '../../domain/profile';
 import { ProfileModel } from '../model/profileModel';
+import { Criteria } from '../../../shared/domain/criteria/criteria';
 
 @injectable()
 export class PgAllProfiles implements AllProfiles {
@@ -14,5 +15,12 @@ export class PgAllProfiles implements AllProfiles {
     await this.connection
       .getRepository(ProfileModel)
       .insert(ProfileModel.from(profile));
+  }
+
+  async searchByCriteria(criteria: Criteria): Promise<Profile | null> {
+    const result = await this.connection.getRepository(Profile)
+      .query('');
+
+    return null;
   }
 }
