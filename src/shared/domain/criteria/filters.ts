@@ -1,6 +1,21 @@
 import { Filter } from './filter';
 
 export class Filters {
-  constructor(public readonly filters: Filter) {
+  public readonly filters: Filter[] = [];
+
+  constructor(filters: Filter[]) {
+    this.filters = filters;
+  }
+
+  public add(filters: Filter[]): Filters {
+    return new Filters(this.filters.concat(filters));
+  }
+
+  public count(): number {
+    return this.filters.length;
+  }
+
+  public isEmpty(): boolean {
+    return this.count() === 0;
   }
 }

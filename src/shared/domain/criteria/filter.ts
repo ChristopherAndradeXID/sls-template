@@ -9,4 +9,16 @@ export class Filter {
     public readonly filterValue: FilterValue,
   ) {
   }
+
+  public static fromValues(
+    field: string,
+    filterOperator: FilterOperator,
+    filterValue: string,
+  ): Filter {
+    return new Filter(
+      new FilterField(field),
+      filterOperator,
+      new FilterValue(filterValue),
+    );
+  }
 }

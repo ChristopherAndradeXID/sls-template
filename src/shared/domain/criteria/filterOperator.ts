@@ -1,3 +1,3 @@
-export class FilterOperator {
-  public static readonly EQUALS = '';
+export enum FilterOperator {
+  EQUALS = '=',
 }

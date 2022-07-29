@@ -5,6 +5,7 @@ import { ConnectionManager } from '../../../shared/infrastructure/connectionMana
 import { Profile } from '../../domain/profile';
 import { ProfileModel } from '../model/profileModel';
 import { Criteria } from '../../../shared/domain/criteria/criteria';
+import { Filter } from '../../../shared/domain/criteria/filter';
 
 @injectable()
 export class PgAllProfiles implements AllProfiles {
@@ -18,8 +19,25 @@ export class PgAllProfiles implements AllProfiles {
   }
 
   async searchByCriteria(criteria: Criteria): Promise<Profile | null> {
+
+    if (!criteria.hasFilters()) {
+      // TODO: WEBITO
+    }
+
+    let query = '';
+    const filters = criteria.getFilters();
+
+    filters.forEach((filter: Filter, index: number) => {
+      if (index === 0) {
+        query = query.concat(`${Profile.name}${filter.field.value} ${filter.filterOperator} = :${filter.field.value}`);
+      }
+    });
+
     const result = await this.connection.getRepository(Profile)
-      .query('');
+      .createQueryBuilder(Profile.name)
+      .where('', {
+        '': '2',
+      });
 
     return null;
   }
