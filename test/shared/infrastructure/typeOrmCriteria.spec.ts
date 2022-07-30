@@ -2,42 +2,53 @@ import { Criteria } from '../../../src/shared/domain/criteria/criteria';
 import { Filters } from '../../../src/shared/domain/criteria/filters';
 import { Filter } from '../../../src/shared/domain/criteria/filter';
 import { TypeOrmCriteriaAdapter } from '../../../src/shared/infrastructure/typeOrmCriteriaAdapter';
-import { Profile } from '../../../src/profile/domain/profile';
 import { FilterOperator } from '../../../src/shared/domain/criteria/filterOperator';
+import { container } from '../../../src/container';
+import { AllProfiles } from '../../../src/profile/domain/allProfiles';
+import { profileTypes } from '../../../src/profile/infrastructure/di/profileTypes';
+import { sharedTypes } from '../../../src/shared/infrastructure/di/sharedTypes';
 import { ConnectionManager } from '../../../src/shared/infrastructure/connectionManager';
-import { ProfileModel } from '../../../src/profile/infrastructure/model/profileModel';
+import { ProfileMother } from '../../profile/domain/profileMother';
 
-const typeOrmAdapter = new TypeOrmCriteriaAdapter();
-const connection = new ConnectionManager();
+const profile = ProfileMother.random();
+
+const connection = container.get<ConnectionManager>(sharedTypes.connection);
+const allProfiles = container.get<AllProfiles>(profileTypes.allProfiles);
 
 describe('TypeormCriteria', () => {
   beforeAll(async () => {
     await connection.open();
+    await allProfiles.save(profile);
   });
 
   afterAll(async () => {
+    await allProfiles.remove(profile.id);
     await connection.close();
   });
 
-  it('Debera crear un sql valido', async () => {
-    const filter = Filter.fromValues('username', FilterOperator.EQUALS, 'christophergerardy778');
-    const filters = new Filters([
-      filter,
-    ]);
+  it('Debera recuperar un registro usando la búsqueda por criteria', async () => {
+    const result = await allProfiles.searchByCriteria(Criteria.create(Filters.create([
+      Filter.fromValues('username', FilterOperator.EQUALS, profile.username.value),
+    ])));
 
-    const criteria = new Criteria(filters);
+    expect(result).toEqual(profile);
+  });
 
-    const result = typeOrmAdapter.convert(Profile.name, criteria);
+  it('Debera crear un query valido', () => {
+    const typeOrmAdapter = new TypeOrmCriteriaAdapter();
 
-    const dbQuery = connection.getRepository(ProfileModel)
-      .createQueryBuilder(ProfileModel.name)
-      .where(`${Profile.name}.username = :${filter.field.value}`)
-      .getQuery();
+    const criteria = Criteria.create(Filters.create(
+      [
+        Filter.fromValues('username', FilterOperator.EQUALS, 'christophergerardy778'),
+        Filter.fromValues('name', FilterOperator.EQUALS, 'christopher'),
+      ],
+    ));
 
-    const queryArray = dbQuery.split(' ');
-    const index = queryArray.indexOf('WHERE');
+    const result = typeOrmAdapter.convert(criteria);
 
-    const typeOrmValidQuery = queryArray.splice(index + 1, queryArray.length).join(' ');
-    expect(result).toEqual(typeOrmValidQuery);
+    expect(result).toEqual({
+      query: 'username = :username AND name = :name',
+      data: { username: 'christophergerardy778', name: 'christopher' },
+    });
   });
 });

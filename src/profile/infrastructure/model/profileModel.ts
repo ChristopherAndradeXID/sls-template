@@ -8,6 +8,7 @@ import { Profile } from '../../domain/profile';
 })
 export class ProfileModel implements ProfilePrimitive {
   @PrimaryColumn({
+    name: 'id',
     type: 'varchar',
     unique: true,
     nullable: false,
@@ -15,6 +16,7 @@ export class ProfileModel implements ProfilePrimitive {
   public id!: string;
 
   @Column({
+    name: 'biography',
     type: 'varchar',
     length: ProfileBiography.MAX_BIOGRAPHY_LENGTH,
     default: '',
@@ -23,6 +25,7 @@ export class ProfileModel implements ProfilePrimitive {
   public biography!: string;
 
   @Column({
+    name: 'isPrivate',
     type: 'boolean',
     default: false,
     nullable: false,
@@ -30,12 +33,14 @@ export class ProfileModel implements ProfilePrimitive {
   public isPrivate!: boolean;
 
   @Column({
+    name: 'photoUrl',
     type: 'varchar',
     nullable: false,
   })
   public photoUrl!: string;
 
   @Column({
+    name: 'username',
     type: 'varchar',
     nullable: false,
     unique: true,
@@ -43,6 +48,7 @@ export class ProfileModel implements ProfilePrimitive {
   public username!: string;
 
   @Column({
+    name: 'website',
     type: 'varchar',
     default: '',
   })

@@ -1,5 +1,8 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column, Entity, JoinColumn, OneToOne, PrimaryColumn,
+} from 'typeorm';
 import { User } from '../../domain/user';
+import { ProfileModel } from '../../../profile/infrastructure/model/profileModel';
 
 @Entity({
   name: 'Users',
@@ -15,6 +18,10 @@ export class UserModel {
 
   @Column()
   public lastname!: string;
+
+  @OneToOne(() => ProfileModel)
+  @JoinColumn()
+  public profile!: ProfileModel;
 
   public static from(user: User): UserModel {
     const { id, userName, lastname } = user.toPrimitives();

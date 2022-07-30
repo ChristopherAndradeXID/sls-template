@@ -1,23 +1,34 @@
 import { Criteria } from '../domain/criteria/criteria';
 import { Filter } from '../domain/criteria/filter';
+import { TypeOrmCriteriaOutput } from './typeOrmCriteriaOutput';
 
 export class TypeOrmCriteriaAdapter {
   private queryValues: string[] = [];
 
-  public convert(entityName: string, criteria: Criteria) {
+  public convert(criteria: Criteria): TypeOrmCriteriaOutput {
+    let fieldValues = {};
+
     if (criteria.hasFilters()) {
       const filters = criteria.getFilters();
 
       filters.forEach((filter: Filter, index: number) => {
-        this.pushQuery(TypeOrmCriteriaAdapter.parseQuery(entityName, filter), index);
+        fieldValues = {
+          ...fieldValues,
+          [filter.field.value]: filter.filterValue.value,
+        };
+
+        this.pushQuery(TypeOrmCriteriaAdapter.parseQuery(filter), index);
       });
     }
 
-    return this.queryValues.join(' ');
+    return {
+      query: this.queryValues.join(' '),
+      data: fieldValues,
+    };
   }
 
-  private static parseQuery(entityName: string, filter: Filter) {
-    return `${entityName}.${filter.field.value} ${filter.filterOperator} :${filter.field.value}`;
+  private static parseQuery(filter: Filter) {
+    return `${filter.field.value} ${filter.filterOperator} :${filter.field.value}`;
   }
 
   private pushQuery(query: string, index: number) {

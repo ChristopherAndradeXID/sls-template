@@ -3,5 +3,6 @@ import { Criteria } from '../../shared/domain/criteria/criteria';
 
 export interface AllProfiles {
   save(profile: Profile): Promise<void>;
-  searchByCriteria(criteria: Criteria): Promise<Profile | null>
+  searchByCriteria(criteria: Criteria): Promise<Profile | null>;
+  remove(id: Profile['id']): Promise<void>;
 }

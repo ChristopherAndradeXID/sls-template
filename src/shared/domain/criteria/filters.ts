@@ -11,6 +11,10 @@ export class Filters {
     return new Filters(this.filters.concat(filters));
   }
 
+  public static create(filters: Filter[]) {
+    return new Filters(filters);
+  }
+
   public count(): number {
     return this.filters.length;
   }

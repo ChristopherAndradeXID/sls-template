@@ -7,6 +7,6 @@ export class ProfileBiographyMother {
   }
 
   public static random() {
-    return new ProfileBiography(faker.lorem.lines(2));
+    return new ProfileBiography(faker.lorem.lines(1));
   }
 }

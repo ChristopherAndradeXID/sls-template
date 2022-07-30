@@ -9,7 +9,7 @@ export class ConnectionManager {
 
   constructor() {
     this.dbSource = new DataSource({
-      database: 'example',
+      database: 'app',
       password: 'GEO699',
       port: 5432,
       username: 'postgres',

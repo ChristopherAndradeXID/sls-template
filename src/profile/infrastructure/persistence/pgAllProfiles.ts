@@ -5,7 +5,7 @@ import { ConnectionManager } from '../../../shared/infrastructure/connectionMana
 import { Profile } from '../../domain/profile';
 import { ProfileModel } from '../model/profileModel';
 import { Criteria } from '../../../shared/domain/criteria/criteria';
-import { Filter } from '../../../shared/domain/criteria/filter';
+import { TypeOrmCriteriaAdapter } from '../../../shared/infrastructure/typeOrmCriteriaAdapter';
 
 @injectable()
 export class PgAllProfiles implements AllProfiles {
@@ -19,26 +19,24 @@ export class PgAllProfiles implements AllProfiles {
   }
 
   async searchByCriteria(criteria: Criteria): Promise<Profile | null> {
+    const converter = new TypeOrmCriteriaAdapter();
+    const output = converter.convert(criteria);
 
-    if (!criteria.hasFilters()) {
-      // TODO: WEBITO
+    const result = await this.connection.getRepository(ProfileModel)
+      .findOne({ where: output.data });
+
+    if (!result) {
+      return null;
     }
 
-    let query = '';
-    const filters = criteria.getFilters();
-
-    filters.forEach((filter: Filter, index: number) => {
-      if (index === 0) {
-        query = query.concat(`${Profile.name}${filter.field.value} ${filter.filterOperator} = :${filter.field.value}`);
-      }
+    return Profile.fromPrimitives({
+      ...result,
     });
+  }
 
-    const result = await this.connection.getRepository(Profile)
-      .createQueryBuilder(Profile.name)
-      .where('', {
-        '': '2',
-      });
-
-    return null;
+  async remove(id: Profile['id']): Promise<void> {
+    await this.connection.getRepository(ProfileModel).delete({
+      id: id.value,
+    });
   }
 }
