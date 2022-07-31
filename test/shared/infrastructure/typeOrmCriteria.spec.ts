@@ -1,7 +1,7 @@
 import { Criteria } from '../../../src/shared/domain/criteria/criteria';
 import { Filters } from '../../../src/shared/domain/criteria/filters';
 import { Filter } from '../../../src/shared/domain/criteria/filter';
-import { TypeOrmCriteriaAdapter } from '../../../src/shared/infrastructure/typeOrmCriteriaAdapter';
+import { TypeOrmCriteriaConverter } from '../../../src/shared/infrastructure/typeOrmCriteriaConverter';
 import { FilterOperator } from '../../../src/shared/domain/criteria/filterOperator';
 import { container } from '../../../src/container';
 import { AllProfiles } from '../../../src/profile/domain/allProfiles';
@@ -35,7 +35,7 @@ describe('TypeormCriteria', () => {
   });
 
   it('Debera crear un query valido', () => {
-    const typeOrmAdapter = new TypeOrmCriteriaAdapter();
+    const typeOrmAdapter = new TypeOrmCriteriaConverter();
 
     const criteria = Criteria.create(Filters.create(
       [

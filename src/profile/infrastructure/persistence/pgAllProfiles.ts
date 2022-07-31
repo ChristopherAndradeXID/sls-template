@@ -5,7 +5,7 @@ import { ConnectionManager } from '../../../shared/infrastructure/connectionMana
 import { Profile } from '../../domain/profile';
 import { ProfileModel } from '../model/profileModel';
 import { Criteria } from '../../../shared/domain/criteria/criteria';
-import { TypeOrmCriteriaAdapter } from '../../../shared/infrastructure/typeOrmCriteriaAdapter';
+import { TypeOrmCriteriaConverter } from '../../../shared/infrastructure/typeOrmCriteriaConverter';
 
 @injectable()
 export class PgAllProfiles implements AllProfiles {
@@ -19,19 +19,21 @@ export class PgAllProfiles implements AllProfiles {
   }
 
   async searchByCriteria(criteria: Criteria): Promise<Profile | null> {
-    const converter = new TypeOrmCriteriaAdapter();
+    const converter = new TypeOrmCriteriaConverter();
     const output = converter.convert(criteria);
 
     const result = await this.connection.getRepository(ProfileModel)
-      .findOne({ where: output.data });
+      .createQueryBuilder('Profile')
+      .select('*')
+      .limit(1)
+      .where(output.query, output.data)
+      .execute();
 
     if (!result) {
       return null;
     }
 
-    return Profile.fromPrimitives({
-      ...result,
-    });
+    return Profile.fromPrimitives(result[0]);
   }
 
   async remove(id: Profile['id']): Promise<void> {

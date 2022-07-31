@@ -2,7 +2,7 @@ import { Criteria } from '../domain/criteria/criteria';
 import { Filter } from '../domain/criteria/filter';
 import { TypeOrmCriteriaOutput } from './typeOrmCriteriaOutput';
 
-export class TypeOrmCriteriaAdapter {
+export class TypeOrmCriteriaConverter {
   private queryValues: string[] = [];
 
   public convert(criteria: Criteria): TypeOrmCriteriaOutput {
@@ -17,7 +17,7 @@ export class TypeOrmCriteriaAdapter {
           [filter.field.value]: filter.filterValue.value,
         };
 
-        this.pushQuery(TypeOrmCriteriaAdapter.parseQuery(filter), index);
+        this.pushQuery(TypeOrmCriteriaConverter.parseQuery(filter), index);
       });
     }
 
