@@ -3,11 +3,12 @@ import {
 } from 'typeorm';
 import { User } from '../../domain/user';
 import { ProfileModel } from '../../../profile/infrastructure/model/profileModel';
+import { UserPrimitive } from '../../domain/userPrimitive';
 
 @Entity({
   name: 'Users',
 })
-export class UserModel {
+export class UserModel implements UserPrimitive {
   @PrimaryColumn({
     unique: true,
   })
@@ -19,17 +20,24 @@ export class UserModel {
   @Column()
   public lastname!: string;
 
-  @OneToOne(() => ProfileModel)
+  @OneToOne(() => ProfileModel, {
+    cascade: true,
+    nullable: false,
+  })
   @JoinColumn()
   public profile!: ProfileModel;
 
   public static from(user: User): UserModel {
-    const { id, userName, lastname } = user.toPrimitives();
+    const {
+      id, name, lastname, profile,
+    } = user.toPrimitives();
+
     const userModel = new UserModel();
 
     userModel.id = id;
-    userModel.name = userName;
+    userModel.name = name;
     userModel.lastname = lastname;
+    userModel.profile = profile;
 
     return userModel;
   }

@@ -12,10 +12,18 @@ export class PgAllProfiles implements AllProfiles {
   constructor(@inject(sharedTypes.connection) private readonly connection: ConnectionManager) {
   }
 
+  private static castProfileIfNotNull(profileModel: ProfileModel | null) {
+    if (profileModel === null) {
+      return null;
+    }
+
+    return Profile.fromPrimitives(profileModel);
+  }
+
   async save(profile: Profile): Promise<void> {
     await this.connection
       .getRepository(ProfileModel)
-      .insert(ProfileModel.from(profile));
+      .save(ProfileModel.from(profile));
   }
 
   async searchByCriteria(criteria: Criteria): Promise<Profile | null> {
@@ -23,22 +31,24 @@ export class PgAllProfiles implements AllProfiles {
     const output = converter.convert(criteria);
 
     const result = await this.connection.getRepository(ProfileModel)
-      .createQueryBuilder('Profile')
-      .select('*')
-      .limit(1)
+      .createQueryBuilder()
       .where(output.query, output.data)
-      .execute();
+      .getOne();
 
-    if (!result) {
-      return null;
-    }
-
-    return Profile.fromPrimitives(result[0]);
+    return PgAllProfiles.castProfileIfNotNull(result);
   }
 
   async remove(id: Profile['id']): Promise<void> {
     await this.connection.getRepository(ProfileModel).delete({
       id: id.value,
     });
+  }
+
+  async find(id: Profile['id']): Promise<Profile | null> {
+    const result = await this.connection.getRepository(ProfileModel).findOneBy({
+      id: id.value,
+    });
+
+    return PgAllProfiles.castProfileIfNotNull(result);
   }
 }

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "test:integration": "jest --testMatch **/**/*.integration.spec.ts --watchAll",
     "lint": "./node_modules/.bin/eslint src --fix",
     "dev": "sls offline --allowCache",
     "deploy": "sls deploy"

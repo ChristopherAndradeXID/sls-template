@@ -3,7 +3,7 @@ import { UserId } from './valueObject/userId';
 import { UserName } from './valueObject/userName';
 import { UserLastname } from './valueObject/userLastname';
 import { Profile } from '../../profile/domain/profile';
-import { ProfilePrimitive } from '../../profile/domain/profilePrimitive';
+import { UserPrimitive } from './userPrimitive';
 
 @Entity()
 export class User {
@@ -23,28 +23,23 @@ export class User {
     userName: UserName,
     userLastName: UserLastname,
     profile: Profile,
-  ) {
+  ): User {
     return new this(id, userName, userLastName, profile);
   }
 
-  static fromPrimitives(
-    id: string,
-    userName: string,
-    userLastName: string,
-    profile: ProfilePrimitive,
-  ): User {
+  static fromPrimitives(userPrimitive: UserPrimitive): User {
     return new User(
-      new UserId(id),
-      new UserName(userName),
-      new UserLastname(userLastName),
-      Profile.fromPrimitives(profile),
+      new UserId(userPrimitive.id),
+      new UserName(userPrimitive.name),
+      new UserLastname(userPrimitive.lastname),
+      Profile.fromPrimitives(userPrimitive.profile),
     );
   }
 
-  toPrimitives() {
+  toPrimitives(): UserPrimitive {
     return {
       id: this.id.value,
-      userName: this.userName.value,
+      name: this.userName.value,
       lastname: this.userLastName.value,
       profile: this.profile.toPrimitives(),
     };
