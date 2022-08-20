@@ -29,7 +29,6 @@ export class PgAllUsers implements AllUsers {
       .findOne({
         where: { id: id.value },
         loadRelationIds: false,
-        relations: ['profile'],
       });
 
     return PgAllUsers.castToUserIfNotNull(userModel);

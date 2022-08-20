@@ -1,7 +1,10 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
-import { ProfilePrimitive } from '../../domain/profilePrimitive';
+import {
+  Column, Entity, JoinColumn, OneToOne, PrimaryColumn,
+} from 'typeorm';
 import { ProfileBiography } from '../../domain/valueObject/profileBiography';
 import { Profile } from '../../domain/profile';
+import { UserModel } from '../../../user/infrastructure/model/userModel';
+import { ProfilePrimitive } from '../../domain/profilePrimitive';
 
 @Entity({
   name: 'Profile',
@@ -54,6 +57,14 @@ export class ProfileModel implements ProfilePrimitive {
   })
   public website!: string;
 
+  @OneToOne(() => UserModel, {
+    cascade: true,
+    nullable: false,
+    eager: true,
+  })
+  @JoinColumn()
+  public user!: UserModel;
+
   public static from(profile: Profile): ProfileModel {
     const profileModel = new ProfileModel();
     profileModel.id = profile.id.value;
@@ -62,6 +73,7 @@ export class ProfileModel implements ProfilePrimitive {
     profileModel.biography = profile.biography.value;
     profileModel.username = profile.username.value;
     profileModel.photoUrl = profile.photoUrl.value;
+    profileModel.user = UserModel.from(profile.user);
     return profileModel;
   }
 }

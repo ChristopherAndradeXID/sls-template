@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/no-import-module-exports
 import { AWS } from '@serverless/typescript';
-import * as path from 'path';
 
 const serverlessConfiguration: AWS = {
   service: 'cg-app',
@@ -13,15 +12,16 @@ const serverlessConfiguration: AWS = {
   frameworkVersion: '3',
 
   plugins: [
-    'serverless-plugin-typescript',
+    'serverless-esbuild',
     'serverless-offline',
-    'serverless-plugin-common-excludes',
-    'serverless-plugin-include-dependencies',
   ],
 
   custom: {
-    webpack: {
-      webpackConfig: 'webpack.config.js',
+    esbuild: {
+      bundle: true,
+      minify: true,
+      exclude: ['pg-native'],
+      target: 'node14',
     },
   },
 

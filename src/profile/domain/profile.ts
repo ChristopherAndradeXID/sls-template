@@ -5,6 +5,7 @@ import { ProfileUsername } from './valueObject/profileUsername';
 import { ProfilePhotoUrl } from './valueObject/profilePhotoUrl';
 import { ProfileIsPrivate } from './valueObject/profileIsPrivate';
 import { ProfilePrimitive } from './profilePrimitive';
+import { User } from '../../user/domain/user';
 
 export class Profile {
   public static readonly PROFILE_DEFAULT_PHOTO_URL = 'https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif';
@@ -16,6 +17,7 @@ export class Profile {
     public photoUrl: ProfilePhotoUrl,
     public website: ProfileWebsite,
     public isPrivate: ProfileIsPrivate,
+    public user: User,
   ) {
   }
 
@@ -26,8 +28,9 @@ export class Profile {
     photoUrl: ProfilePhotoUrl,
     website: ProfileWebsite,
     isPrivate: ProfileIsPrivate,
+    user: User,
   ): Profile {
-    return new Profile(id, username, biography, photoUrl, website, isPrivate);
+    return new Profile(id, username, biography, photoUrl, website, isPrivate, user);
   }
 
   public static fromPrimitives({
@@ -37,6 +40,7 @@ export class Profile {
     photoUrl,
     website,
     isPrivate,
+    user,
   }: ProfilePrimitive): Profile {
     return this.create(
       new ProfileId(id),
@@ -45,6 +49,7 @@ export class Profile {
       new ProfilePhotoUrl(photoUrl),
       new ProfileWebsite(website),
       new ProfileIsPrivate(isPrivate),
+      User.fromPrimitives(user),
     );
   }
 
@@ -60,6 +65,7 @@ export class Profile {
       photoUrl: this.photoUrl.value,
       biography: this.biography.value,
       isPrivate: this.isPrivate.value,
+      user: this.user.toPrimitives(),
     };
   }
 }

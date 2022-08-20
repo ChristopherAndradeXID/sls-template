@@ -4,8 +4,7 @@ import { User } from '../../../src/user/domain/user';
 import { UserId } from '../../../src/user/domain/valueObject/userId';
 import { UserName } from '../../../src/user/domain/valueObject/userName';
 import { UserLastname } from '../../../src/user/domain/valueObject/userLastname';
-import { Profile } from '../../../src/profile/domain/profile';
-import { ProfileMother } from '../../profile/domain/profileMother';
+import { UserPassword } from '../../../src/user/domain/valueObject/userPassword';
 
 export class UserMother {
   public static random() {
@@ -13,7 +12,7 @@ export class UserMother {
       id: uuid(),
       name: faker.name.firstName(),
       lastname: faker.name.lastName(),
-      profile: ProfileMother.random().toPrimitives(),
+      password: faker.internet.password(6),
     });
   }
 
@@ -21,13 +20,13 @@ export class UserMother {
     id: UserId,
     name: UserName,
     lastname: UserLastname,
-    profile: Profile,
+    password: UserPassword,
   ): User {
     return User.create(
       id,
       name,
       lastname,
-      profile,
+      password,
     );
   }
 }

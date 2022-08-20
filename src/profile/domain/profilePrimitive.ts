@@ -1,3 +1,5 @@
+import { UserPrimitive } from '../../user/domain/userPrimitive';
+
 export interface ProfilePrimitive {
   id: string;
   username: string;
@@ -5,4 +7,5 @@ export interface ProfilePrimitive {
   photoUrl: string;
   website: string;
   isPrivate: boolean;
+  user: UserPrimitive;
 }

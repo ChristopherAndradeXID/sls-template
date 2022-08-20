@@ -6,15 +6,16 @@ import { Criteria } from '../../../shared/domain/criteria/criteria';
 import { Profile } from '../../domain/profile';
 import { Filters } from '../../../shared/domain/criteria/filters';
 import { Filter } from '../../../shared/domain/criteria/filter';
+import { ProfileUsername } from '../../domain/valueObject/profileUsername';
 
 @injectable()
 export class ProfileSearcher {
   constructor(@inject(profileTypes.allProfiles) private readonly allProfiles: AllProfiles) {
   }
 
-  public async run(username: string): Promise<Profile | null> {
+  public async run(username: ProfileUsername): Promise<Profile | null> {
     const filters = new Filters([
-      Filter.fromValues('username', FilterOperator.EQUALS, username),
+      Filter.fromValues('username', FilterOperator.EQUALS, username.value),
     ]);
 
     const criteria = new Criteria(filters);

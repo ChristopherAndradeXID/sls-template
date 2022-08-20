@@ -11,6 +11,8 @@ import { ProfileBiography } from '../../../src/profile/domain/valueObject/profil
 import { ProfilePhotoUrl } from '../../../src/profile/domain/valueObject/profilePhotoUrl';
 import { ProfileWebsite } from '../../../src/profile/domain/valueObject/profileWebsite';
 import { ProfileIsPrivate } from '../../../src/profile/domain/valueObject/profileIsPrivate';
+import { User } from '../../../src/user/domain/user';
+import { UserMother } from '../../user/domain/userMother';
 
 export class ProfileMother {
   public static create(
@@ -20,6 +22,7 @@ export class ProfileMother {
     profilePhotoUrl: ProfilePhotoUrl,
     profileWebsite: ProfileWebsite,
     profileIsPrivate: ProfileIsPrivate,
+    user: User,
   ) {
     return new Profile(
       profileId,
@@ -28,6 +31,7 @@ export class ProfileMother {
       profilePhotoUrl,
       profileWebsite,
       profileIsPrivate,
+      user,
     );
   }
 
@@ -39,6 +43,7 @@ export class ProfileMother {
       ProfilePhotoUrlMother.random(),
       ProfileWebsiteMother.random(),
       ProfileIsPrivateMother.random(),
+      UserMother.random(),
     );
   }
 }

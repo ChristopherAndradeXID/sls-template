@@ -4,25 +4,11 @@ import { ConnectionManager } from '../../../src/shared/infrastructure/connection
 import { sharedTypes } from '../../../src/shared/infrastructure/di/sharedTypes';
 import { AllUsers } from '../../../src/user/domain/allUsers';
 import { userTypes } from '../../../src/user/infrastructure/di/userTypes';
-import { UserIdMother } from '../domain/userIdMother';
-import { UserNameMother } from '../domain/userNameMother';
-import { UserLastnameMother } from '../domain/userLastnameMother';
-import { ProfileMother } from '../../profile/domain/profileMother';
-import { AllProfiles } from '../../../src/profile/domain/allProfiles';
-import { profileTypes } from '../../../src/profile/infrastructure/di/profileTypes';
 
-const givenProfile = ProfileMother.random();
-
-const givenUser = UserMother.create(
-  UserIdMother.create(),
-  UserNameMother.random(),
-  UserLastnameMother.random(),
-  ProfileMother.random(),
-);
+const givenUser = UserMother.random();
 
 const connection = container.get<ConnectionManager>(sharedTypes.connection);
 const allUsers = container.get<AllUsers>(userTypes.allUsers);
-const allProfiles = container.get<AllProfiles>(profileTypes.allProfiles);
 
 describe('AllUsers', () => {
   beforeAll(async () => {
@@ -35,7 +21,6 @@ describe('AllUsers', () => {
   });
 
   beforeEach(async () => {
-    await allProfiles.save(givenProfile);
     await allUsers.save(givenUser);
   });
 

@@ -31,9 +31,9 @@ export class PgAllProfiles implements AllProfiles {
     const output = converter.convert(criteria);
 
     const result = await this.connection.getRepository(ProfileModel)
-      .createQueryBuilder()
-      .where(output.query, output.data)
-      .getOne();
+      .findOne({
+        where: output.data,
+      });
 
     return PgAllProfiles.castProfileIfNotNull(result);
   }
@@ -45,8 +45,8 @@ export class PgAllProfiles implements AllProfiles {
   }
 
   async find(id: Profile['id']): Promise<Profile | null> {
-    const result = await this.connection.getRepository(ProfileModel).findOneBy({
-      id: id.value,
+    const result = await this.connection.getRepository(ProfileModel).findOne({
+      where: { id: id.value },
     });
 
     return PgAllProfiles.castProfileIfNotNull(result);
